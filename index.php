@@ -2,10 +2,16 @@
 
 <?php 
 
-    include 'db.php'; 
-    $sql = "select * from task";
+    include 'db.php';        
+    $page = (isset($_GET['page']) ? (int) $_GET['page'] : 1);    
+    $perPage = (isset($_GET['per-page']) && ((int) $_GET['per-page'] <= 50) ? (int) $_GET['per-page'] : 5);
+    $start = ($page > 1) ? ($page * $perPage) - $perPage : 0;
+    $sql = "select * from task limit ".$perPage." offset ".$start." ";        
+    $total = $db->query("select * from task")->num_rows;    
+    $pages = ceil($total /  $perPage);
+     
     $rows = $db->query($sql);    
-
+    
 ?>
 
 <html>
@@ -65,13 +71,20 @@
                             while($row = $rows->fetch_assoc()):                            
                         ?>
                         <th scope="row"><?php echo $row['id'] ?></th>
-                        <td class="col-md-10"><?php echo $row['name'] ?></td>     
-                        <td><a href="" class="btn btn-success">Edit</a></td>
-                        <td><a href="" class="btn btn-danger">Delete</a></td>
+                        <td class="col-md-10"><?php echo $row['name']  ?></td>     
+                        <td><a href="update.php?id=<?php echo $row['id'];?>" class="btn btn-success">Edit</a></td>
+                        <td><a href="delete.php?id=<?php echo $row['id'];?>" class="btn btn-danger">Delete</a></td>
                         </tr>              
                         <?php endwhile; ?>          
                     </tbody>
                 </table>
+                <center>
+                    <ul class="pagination">
+                    <?php for($i = 1; $i <= $pages; $i++): ?>
+                        <li class="page-item"><a href="?page=<?php echo $i?>&per-page=<?php echo $perPage;?>"><?php echo $i?></a></li>
+                    <?php endfor; ?>
+                    </ul>
+                </center>
             </div>
         </div>
     </div>
