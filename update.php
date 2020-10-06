@@ -41,6 +41,8 @@
                             <input type="text" value="<?php echo $row["name"]?>" required name="task" class="form-control">
                         </div>
                         <input type="submit" name="send" value="Update Task" class="btn btn-success">
+                        &nbsp;
+                        <a href="index.php" class="btn btn-danger">Cancel</a>
                     </form>                                
             </div>
         </div>

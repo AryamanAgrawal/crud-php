@@ -31,9 +31,9 @@
         <div class="row" style="margin-top: 70px;">
             <center><h1>Todo List</h1></center>
             <div class="col-md-10 col-md-offset-1">
-                <table class="table">
+                <table class="table table-hover">
                 <button type="button" data-target="#myModal" data-toggle="modal" class="btn btn-success">Add Task</button>
-                <button type="button" class="btn btn-default pull-right">Print</button>
+                <button type="button" class="btn btn-default pull-right" onclick="print()">Print</button>
                 <hr><br>
                     <div id="myModal" class="modal fade" role="dialog">
                         <div class="modal-dialog">
